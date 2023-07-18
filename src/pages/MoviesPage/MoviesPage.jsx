@@ -1,11 +1,14 @@
 import {Link, useSearchParams, useLocation} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import {fetchMovies} from '../../services/fetchMovies'
+import SearchMovies from 'components/SearchMovies/SearchMovies';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([])
-  const [searchParams, setSearchParams] = useSearchParams()
-  const movieName = searchParams.get('query')
+  const [searchParams] = useSearchParams()
+  console.log("searchParams2", searchParams)
+
+  const movieName = searchParams.get('query') ?? ''
   console.log("movieName", movieName)
   const location = useLocation()
 
@@ -27,38 +30,12 @@ const MoviesPage = () => {
       }
     }
     fetchMovieData()
+
   }, [movieName]);
-
-
-
-
-   const handleSearchParams = (event) => {
-    event.preventDefault()
-    const searchValue = event.target.children.search.value
-    console.log("searchValue", searchValue)
-
-    if (searchValue.trim().length > 2 ) {
-      setSearchParams({query:  searchValue})
-    }
-
-    // setSearchParams({query: searchValue})
-
-   }
 
     return (
     <div>
-      <form onSubmit={handleSearchParams} >
-        <input type="text"
-        name = "search"
-       placeholder="Enter movie"
-        value={movieName}
-        required
-        minLength={2}
-        /> 
-       
-        <button type='submit' >Search</button>
-      </form>
-      
+       <SearchMovies/> 
       <ul>
         {movies.map(({title, id, name}) => (
              <li key={id}>
@@ -74,6 +51,12 @@ const MoviesPage = () => {
     )
 }
 export default MoviesPage
+
+
+
+
+
+
 // onClick={()=>setSearchParams({})}
 
 /* <div>
