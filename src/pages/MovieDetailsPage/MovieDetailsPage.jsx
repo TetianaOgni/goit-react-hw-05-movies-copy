@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { Link, Outlet } from "react-router-dom"
+import {FaLongArrowAltLeft} from "react-icons/fa";
 import {fetchMoviesDetails } from '../../services/fetchMovies'
 import {MagnifyingGlass} from 'react-loader-spinner'
 import errorImg from  '../../components/Images/errorImg.jpg'
@@ -48,7 +49,10 @@ const MovieDetailsPage = ()=>  {
     // тут рендерим по полученному запросу разметку
     <div>
       
-        <Link to={backLinkHref.current}>Go back</Link> 
+        <Link to={backLinkHref.current}>
+        <FaLongArrowAltLeft/>
+          Go back
+          </Link> 
         {error !== null  && (
         <p>
           Oops, some error happened. Please, try again later. Error: {error} 

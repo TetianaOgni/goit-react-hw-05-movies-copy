@@ -1,6 +1,6 @@
 import {Link, useSearchParams, useLocation} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
-import {fetchMovies} from '../../services/fetchMovies'
+import {fetchMovies} from '../../services/fetchMovies';
 import SearchMovies from 'components/SearchMovies/SearchMovies';
 
 const MoviesPage = () => {
