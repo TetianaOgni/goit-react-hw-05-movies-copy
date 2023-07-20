@@ -32,8 +32,9 @@ export const Link = styled(NavLink)`
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
-  outline: 1px solid rgb(20, 19, 19);
+  outline: 1px solid  rgb(240, 239, 239);
   color: black;
+  color: rgb(182, 190, 202);
   font-weight: 500;
 
   &.active {
@@ -42,15 +43,27 @@ export const Link = styled(NavLink)`
     box-shadow: 0px -2px 28px -2px rgba(59,55,55,0.71) inset;
     -webkit-box-shadow: 0px -2px 28px -2px rgba(59,55,55,0.71) inset;
     -moz-box-shadow: 0px -2px 28px -2px rgba(59,55,55,0.71) inset;
-    
-    
+    color: rgb(53, 53, 52);
+
   }
   &:hover {
     background-color: rgb(237, 232, 232);
     box-shadow: 0px 0px 11px 0px rgba(253,0,0,1);
 -webkit-box-shadow: 0px 0px 11px 0px rgba(253,0,0,1);
 -moz-box-shadow: 0px 0px 11px 0px rgba(253,0,0,1);
-  transform: scale(1.03);
+
+box-shadow: 0px 0px 9px 2px rgba(253,31,16,0.92);
+-webkit-box-shadow: 0px 0px 9px 2px rgba(253,31,16,0.92);
+-moz-box-shadow: 0px 0px 9px 2px rgba(253,31,16,0.92); 10px -7px rgba(253,31,16,1);
+
+transform: scale(1.03);
   cursor: pointer;
+
+  color: rgb(53, 53, 52);
 }
 `;
+
+export const Main = styled.main`
+
+
+`

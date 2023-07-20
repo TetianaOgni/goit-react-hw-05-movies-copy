@@ -1,6 +1,6 @@
 
 import { Outlet} from "react-router-dom";
-import { Container, Nav, Header, Link } from './Layout.styled';
+import { Container, Nav, Header, Link, Main } from './Layout.styled';
 
 
 const Layout= ()=>  {
@@ -12,8 +12,10 @@ const Layout= ()=>  {
             <Link to="/movies">Movies</Link>
         </Nav>
       </Header>
-      
+      <Main>
         <Outlet/>
+      </Main>
+        
     </Container>
   )
 }

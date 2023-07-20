@@ -1,12 +1,18 @@
 // import {Link, useSearchParams, useLocation} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import  toastConfig  from "notification/Toastify";
 import {fetchMovies} from '../../services/fetchMovies';
 import SearchMovies from 'components/SearchMovies/SearchMovies';
 import MoviesList from 'components/MoviesList/MoviesList'
+import Loading from "components/Loading/Loading";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+
   const [searchParams] = useSearchParams()
   console.log("searchParams2", searchParams)
 
@@ -20,15 +26,25 @@ const MoviesPage = () => {
 
     const fetchMovieData = async () => {
       try {
+
+        setIsLoading(true)
+
         const movies = await fetchMovies(movieName)
-      
         setMovies(movies)
-        
-        // console.log('movies', movies)
-      }
+
+    if (movies.length === 0) {
+          toast.warning('Sorry! The movies with such words are not found.', toastConfig);
+      } 
+     
+    }
       catch(error){
        console.log(error.message)
-      
+       setError(error.message)
+       toast.error(error.message, toastConfig)
+      }
+      finally{
+        setIsLoading(false)
+
       }
     }
     fetchMovieData()
@@ -38,18 +54,12 @@ const MoviesPage = () => {
     return (
     <div>
        <SearchMovies/> 
-       <MoviesList movies={movies}/>
-      {/* <ul>
-        {movies.map(({title, id, name}) => (
-             <li key={id}>
-             <Link 
-             state={{from: location}} 
-             to={`/movies/${id}`} >
-               {title ? title : name}
-             </Link>
-           </li>
-        ))}
-      </ul> */}
+       {error !== null && (
+        <p>Oops, some error happened. Please, try again later. Error: {error} 
+        </p>
+      )}
+      {isLoading && (<Loading/>)}
+      {movies && (<MoviesList movies={movies}/>)}
     </div>
     )
 }

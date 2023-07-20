@@ -1,12 +1,14 @@
 import React from 'react'
 import {useLocation} from 'react-router-dom';
-import { MoviesLink, MoviesItem } from "./MoviesList.styled.js";
+// import { toast } from 'react-toastify';
+// import  toastConfig  from "notification/Toastify";
+import { MoviesLink, MoviesItem, MovList } from "./MoviesList.styled.js";
 
 const MoviesList = ({movies}) => {
     const location = useLocation()
-
+    
   return (
-    <ul>
+    <MovList>
         {movies.map(({title, id, name}) => (
              <MoviesItem key={id}>
              < MoviesLink 
@@ -16,7 +18,7 @@ const MoviesList = ({movies}) => {
              </ MoviesLink>
            </MoviesItem>
         ))}
-      </ul>
+      </MovList>
   )
 }
 

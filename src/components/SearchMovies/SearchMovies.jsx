@@ -1,5 +1,6 @@
 import {useSearchParams} from 'react-router-dom';
 import React, { useState,} from "react";
+import {SearchMoviesLine, SearchButton, SearchInput} from './SearchMovies.styled'
 
 const SearchMovies = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -7,7 +8,7 @@ const SearchMovies = () => {
     
     const handleSearchParams = (event) => {
         event.preventDefault()
-        const searchValue = event.target.children.search.value
+        const searchValue = event.target.children.search.value.trim()
         console.log("searchValue", searchValue)
     
         if (searchValue.trim().length > 2 ) {
@@ -16,21 +17,21 @@ const SearchMovies = () => {
         }
       };
   return (
-    <div>
+    <SearchMoviesLine>
       <form onSubmit={handleSearchParams} >
-        <input type="text"
+        <SearchInput type="text"
         name = "search"
        placeholder="Enter movie"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => setSearchValue(e.target.value.trim())}
         required
         minLength={2}
         /> 
        
-        <button type='submit' >Search</button>
+        <SearchButton type='submit' >Search</SearchButton>
       </form>
 
-    </div>
+    </SearchMoviesLine>
   )
 }
 
