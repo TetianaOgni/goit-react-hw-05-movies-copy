@@ -43,10 +43,22 @@ const MovieDetailsPage = ()=>  {
     }, [movieId])
     // console.log(5, movieDetails.backdrop_path)
     console.log('error', error)
-    const {backdrop_path, poster_path, title, overview} = movieDetails || {}
-    // console.log(6, poster_path)
+    const {backdrop_path, poster_path, title, release_date, overview, genres, vote_average} = movieDetails || {}
+   let genres_list
+    if (!genres) {
+      genres_list = 'Genre is found'
+    } else if (genres.length === 1) {
+      genres_list = genres[0].name;
+    }else{
+      genres_list = genres.map((genre, index)=> {
+        if (index !==0){
+          genre.name = genre.name.toLowerCase()
+        }
+        return genre.name
+      }).join(", ")
+  }
+    console.log(6, genres_list)
   return (
-    // тут рендерим по полученному запросу разметку
     <div>
       
         <Link to={backLinkHref.current}>
@@ -92,8 +104,12 @@ const MovieDetailsPage = ()=>  {
             </ImageMovieThumb>
             }
             <MovieInfo>
-              <h2>{title}</h2>
+              <h2>{title} ({release_date.slice(0, 4)})</h2>
+              <p>User Score: {vote_average * 10}%</p> 
+              <h3>Overview</h3>
               <p>{overview}</p>
+              <h3>Genres</h3>
+              <p>{genres_list}</p>
             </MovieInfo>
             
         </MovieContent>
@@ -114,3 +130,7 @@ const MovieDetailsPage = ()=>  {
 }
 
 export default MovieDetailsPage
+
+
+
+  // {vote_average.toFixed(1)}/10

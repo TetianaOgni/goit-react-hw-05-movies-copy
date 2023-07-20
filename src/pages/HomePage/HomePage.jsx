@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useEffect } from "react";
 // import { Link } from "react-router-dom";
-import { HomeLink, HomeItem } from "./HomePage.styled";
+// import { HomeLink, HomeItem } from "./HomePage.styled";
 import { fetchTrendyMovies } from "services/fetchMovies";
+import MoviesList from "components/MoviesList/MoviesList.jsx";
+
 const HomePage = () => {
   const [movies, setMovies] = useState([])
   useEffect(() => {
@@ -24,10 +26,10 @@ const HomePage = () => {
   return (
     <div>
       <h2>Trending today</h2>
-      <ul>
+      <MoviesList movies={movies}/>
+      {/* <ul>
       {movies.map(({title, id, name}) => {
         return (
-         
             <HomeItem key={id}>
               <HomeLink  to={`/movies/${id}`} >
                 {title ? title : name}
@@ -36,7 +38,7 @@ const HomePage = () => {
     
         )
       })}
-      </ul>
+      </ul> */}
     </div>
   )
 }

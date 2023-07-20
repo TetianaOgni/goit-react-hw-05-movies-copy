@@ -1,7 +1,9 @@
-import {Link, useSearchParams, useLocation} from 'react-router-dom';
+// import {Link, useSearchParams, useLocation} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import {fetchMovies} from '../../services/fetchMovies';
 import SearchMovies from 'components/SearchMovies/SearchMovies';
+import MoviesList from 'components/MoviesList/MoviesList'
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([])
@@ -10,7 +12,7 @@ const MoviesPage = () => {
 
   const movieName = searchParams.get('query') ?? ''
   console.log("movieName", movieName)
-  const location = useLocation()
+  // const location = useLocation()
 
 
   useEffect(() => {
@@ -36,7 +38,8 @@ const MoviesPage = () => {
     return (
     <div>
        <SearchMovies/> 
-      <ul>
+       <MoviesList movies={movies}/>
+      {/* <ul>
         {movies.map(({title, id, name}) => (
              <li key={id}>
              <Link 
@@ -46,7 +49,7 @@ const MoviesPage = () => {
              </Link>
            </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
     )
 }
