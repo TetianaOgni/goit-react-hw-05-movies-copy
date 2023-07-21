@@ -4,17 +4,8 @@ import { toast } from 'react-toastify';
 import  toastConfig  from "notification/Toastify";
 import {fetchMovieCast} from '../../services/fetchMovies'
 import Loading from "components/Loading/Loading";
-import { CastList, CastItem, CastImage}
-// const toastConfig = {
-//   position: "top-center",
-//   autoClose: 3000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: true,
-//   progress: undefined,
-//   theme: "dark",
-//   };
+import { CastList, CastItem, CastImage, CastText} from './Cast.styled'
+
 const Cast = () => {
   const [cast, setCast] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +14,9 @@ const Cast = () => {
 const { movieId } = useParams();
 
 useEffect(() => {
+
 if (!movieId) return;
+
 const fetchMovieData = async () => {
 try {
   setIsLoading(true)
@@ -31,7 +24,6 @@ try {
   setCast(cast)
   if (cast.length === 0) {
   toast.info('Info is not found', toastConfig);}
-  console.log(1,'cast', cast)
 }
 catch(error){
  setError(error.message)
@@ -42,15 +34,16 @@ finally{
 }
 }
 fetchMovieData()
+
 }, [movieId]);
 
+const fallbackImage = 'https://via.placeholder.com/200x260';
 
   return (
   
     <div>
-      my Cast for {movieId}
       {error !== null && (
-        <p>
+        <p style={{ color: "red" }}>
       Oops, some error happened. Please, try again later. Error: {error} 
         </p>
       )}
@@ -59,8 +52,14 @@ fetchMovieData()
       (<CastList>
         {cast.map(({ profile_path, name, id}) => (
              <CastItem key={id}>
-           <CastImage src={`https://image.tmdb.org/t/p/w200${profile_path}`} alt={name}/>
-           <p>{name}</p>
+           <CastImage 
+           src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+           alt={name}
+           onError={(e) => {
+            e.target.src = fallbackImage;
+          }}
+            />
+           <CastText>{name}</CastText>
            </CastItem>
         ))}
       </CastList>)}

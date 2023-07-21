@@ -9,7 +9,6 @@ const SearchMovies = () => {
     const handleSearchParams = (event) => {
         event.preventDefault()
         const searchValue = event.target.children.search.value.trim()
-        console.log("searchValue", searchValue)
     
         if (searchValue.trim().length > 2 ) {
           setSearchParams({query:  searchValue})

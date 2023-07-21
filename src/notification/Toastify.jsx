@@ -7,6 +7,5 @@
     draggable: true,
     progress: undefined,
     theme: "dark",
-  
     };
 export default toastConfig

@@ -4,6 +4,7 @@ import {fetchMovieReview} from '../../services/fetchMovies'
 import Loading from "components/Loading/Loading";
 import { toast } from 'react-toastify';
 import  toastConfig  from "notification/Toastify";
+import {ReviewsContainer, ReviewsItem, ReviewsList, ReviewsText, ReviewsTitle, ReviewsWrap} from './Reviews.styles'
 
 const Reviews = () => {
 
@@ -23,10 +24,8 @@ const Reviews = () => {
       setReviews(reviews)
       if (reviews.length === 0) {
       toast.info('Info is not found', toastConfig);}
-      console.log(1,'reviews', reviews)
     }
     catch(error){
-     console.log(error.message)
      setError(error.message)
      toast.error(error.message, toastConfig)
     }
@@ -39,22 +38,25 @@ const Reviews = () => {
 
 
   return (
-    <div>
-      My Reviews for {movieId}
+    <ReviewsContainer>
       {error !== null && (
-        <p>Oops, some error happened. Please, try again later. Error: {error} 
+        <p style={{ color: "red" }}>Oops, some error happened. Please, try again later. Error: {error} 
         </p>
       )}
       {isLoading && (<Loading/>)}
-      <ul>
+      <ReviewsList>
         {reviews.map(({ author, content, id}) => (
-          <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>{content}</p>
-           </li>
+          <ReviewsItem key={id}>
+            <ReviewsWrap>
+              <ReviewsText>Author:</ReviewsText> 
+              <ReviewsTitle>{author}</ReviewsTitle>
+            </ReviewsWrap>
+                
+              <ReviewsText>{content}</ReviewsText>
+           </ReviewsItem>
         ))}
-      </ul>
-    </div>
+      </ReviewsList>
+    </ReviewsContainer>
   )
 }
 

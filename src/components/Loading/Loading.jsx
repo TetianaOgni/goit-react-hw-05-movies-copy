@@ -1,8 +1,9 @@
 import {MagnifyingGlass} from 'react-loader-spinner'
+import {Spinner} from './Loading.styled'
 
 const Loading = () => {
   return (
-   <div>
+   <Spinner>
      <MagnifyingGlass
           visible={true}
           height="80"
@@ -17,8 +18,9 @@ const Loading = () => {
           wrapperClass="MagnifyingGlass-wrapper"
           glassColor = '#fff'
           color = 'rgba(0, 0, 0)'
+          
         /> 
-    </div>
+    </Spinner>
   )
 }
 

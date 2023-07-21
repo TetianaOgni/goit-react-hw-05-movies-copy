@@ -3,7 +3,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import {  Outlet } from 'react-router-dom';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { fetchMoviesDetails } from '../../services/fetchMovies';
-// import {MagnifyingGlass} from 'react-loader-spinner'
 import errorImg from '../../components/Images/errorImg.jpg';
 import {
   MovieContent,
@@ -17,7 +16,9 @@ import {
   MovieText,
   CastReviewLink,
   WrapDetails,
+  DetailsTitle
 } from './MovieDetailsPage.styled';
+import {ErrorText} from "../HomePage/HomePage.styled"
 import Loading from 'components/Loading/Loading';
 
 const MovieDetailsPage = () => {
@@ -25,20 +26,16 @@ const MovieDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const location = useLocation();
-  // console.log("location", location)
   const backLinkHref = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
-  // console.log(3, movieId)
   useEffect(() => {
     if (!movieId) {
-      // console.log(movieId)
       return;
     }
     const fetchMovieData = async () => {
       try {
         setIsLoading(true);
         const movieDetails = await fetchMoviesDetails(movieId);
-        // console.log(4, movieDetails.title)
         setMovieDetails(movieDetails);
       } catch (error) {
         console.log(error.message);
@@ -49,8 +46,7 @@ const MovieDetailsPage = () => {
     };
     fetchMovieData();
   }, [movieId]);
-  // console.log(5, movieDetails.backdrop_path)
-  // console.log('error', error)
+
   const {
     backdrop_path,
     poster_path,
@@ -75,7 +71,6 @@ const MovieDetailsPage = () => {
       })
       .join(', ');
   }
-  // console.log(6, genres_list)
   return (
     <MovieDetails>
       <GoBack to={backLinkHref.current}>
@@ -83,9 +78,9 @@ const MovieDetailsPage = () => {
         <GoBackText>Go back</GoBackText>
       </GoBack>
       {error !== null && (
-        <p>
+        <ErrorText>
           Oops, some error happened. Please, try again later. Error: {error}
-        </p>
+        </ErrorText>
       )}
       {isLoading && (
         <>
@@ -98,8 +93,15 @@ const MovieDetailsPage = () => {
           {poster_path ? (
             <ImageMovieThumb>
               <ImageMovie
-                src={`https://image.tmdb.org/t/p/w200${poster_path}`}
                 alt={title}
+                src={`https://image.tmdb.org/t/p/original${poster_path}`}
+  srcset={`https://image.tmdb.org/t/p/w342${poster_path} 342w,
+  https://image.tmdb.org/t/p/w500${poster_path} 500w,
+  https://image.tmdb.org/t/p/w780${poster_path} 780w,
+  https://image.tmdb.org/t/p/original${poster_path} 1500w`}
+  
+  width='300'
+  height='400'
               />
             </ImageMovieThumb>
           ) : (
@@ -112,24 +114,17 @@ const MovieDetailsPage = () => {
               {title} ({release_date.slice(0, 4)})
             </h2>
             <MovieWrap>
-              <MovieText>
-                <p>User Score: {vote_average * 10}%</p>
-                <h3>Overview</h3>
+              <MovieText>  
+                <p>User Score: {vote_average.toFixed(1) * 10}%</p>
+                <DetailsTitle>Overview</DetailsTitle>
                 <p>{overview}</p>
-                <h3>Genres</h3>
+                <DetailsTitle>Genres</DetailsTitle>
                 <p>{genres_list}</p>
               </MovieText>
             </MovieWrap>
           </MovieInfo>
         </MovieContent>
       )}
-
-      {/* <WrapDetails>
-       
-          <CastReviewLink to="cast">Cast</CastReviewLink>
-          <CastReviewLink to="reviews">Reviews</CastReviewLink>
-       
-      </WrapDetails> */}
 
       <WrapDetails>
         <li>
@@ -147,4 +142,4 @@ const MovieDetailsPage = () => {
 
 export default MovieDetailsPage;
 
-// {vote_average.toFixed(1)}/10
+

@@ -1,9 +1,5 @@
 import { Suspense } from "react";
 import {  Route, Routes } from "react-router-dom";
-
-// import HomePage from 'pages/HomePage/HomePage'
-// import MoviesPage from 'pages/MoviesPage/MoviesPage'
-// import MovieDetailsPage from "pages/MovieDetailsPage/MovieDetailsPage";
 import Layout from "./Layout/Layout";
 import Cast from 'components/Cast/Cast'
 import Reviews from "./Reviews/Reviews";
@@ -33,8 +29,6 @@ export const App = () => {
       glassColor = '#fff'
 
       color = 'rgb(46,46,46)'
-      
-
     />}>
        <Routes>
         <Route path="/" element={<Layout/>}>

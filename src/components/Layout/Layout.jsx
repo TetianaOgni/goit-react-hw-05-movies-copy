@@ -1,4 +1,3 @@
-
 import { Outlet} from "react-router-dom";
 import { Container, Nav, Header, Link, Main } from './Layout.styled';
 

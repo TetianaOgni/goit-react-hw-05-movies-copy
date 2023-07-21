@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
-// import { Link } from "react-router-dom";
-// import { HomeLink, HomeItem } from "./HomePage.styled";
 import { toast } from 'react-toastify';
 import  toastConfig  from "notification/Toastify";
 import { fetchTrendyMovies } from "services/fetchMovies";
 import MoviesList from "components/MoviesList/MoviesList.jsx";
 import Loading from "components/Loading/Loading";
-
+import {ErrorText} from "./HomePage.styled"
+  
 const HomePage = () => {
   const [movies, setMovies] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -21,10 +20,8 @@ const HomePage = () => {
         setMovies(movies)
         if (!movies) {
           toast.info('Sorry! Information about movies is not found.', toastConfig);}
-        // console.log('movies', movies)
       }
       catch(error){
-       console.log(error.message)
        setError(error.message)
        toast.error(error.message, toastConfig)
 
@@ -39,8 +36,8 @@ const HomePage = () => {
     <div>
       <h2>Trending today</h2>
       {error !== null && (
-        <p>Oops, some error happened. Please, try again later. Error: {error} 
-        </p>
+        <ErrorText>Oops, some error happened. Please, try again later. Error: {error} 
+        </ErrorText>
       )}
       {isLoading && (<Loading/>)}
       {movies &&  <MoviesList movies={movies}/>}
