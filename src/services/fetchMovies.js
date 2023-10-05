@@ -26,6 +26,7 @@ export const fetchMovies = async(movieName) => {
 
 export const fetchMoviesDetails = async movieId => {
   const {data} = await axios.get(`${BASE_URL}/movie/${movieId}?language=en-US`, options)
+  console.log(0, data)
   return data
 }
 
